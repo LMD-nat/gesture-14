@@ -520,6 +520,8 @@ ANOVA_sectionD_dom
 
 t_test_sectionD_dom <- t.test(D_SUM~Dom_Lang, data = my_data, var.equal = TRUE)
 t_test_sectionD_dom
+tapply(my_data$A_SUM,my_data$Dom_Lang,sd)
+
 cohensD(my_data$D_SUM~my_data$Dom_Lang)
 
 ##ANOVA Section E
