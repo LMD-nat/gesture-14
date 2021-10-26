@@ -1,6 +1,6 @@
-
+# code originally written by Dr Byers-Heinlein and Dr Gonzalez-Barrero, efited by myself on 26/10/2021
   
-  #1.1. Cleaning workspace
+#1.1. Cleaning workspace
   
 rm(list=ls(all=T))
 
@@ -504,6 +504,17 @@ ANOVA_sectionA_dom
 t_test_sectionA_dom <- t.test(A_SUM~Dom_Lang, data = my_data, var.equal = TRUE)
 t_test_sectionA_dom
 cohensD(my_data$A_SUM~my_data$Dom_Lang)
+
+library(ggplot2)
+
+ggboxplot(my_data, x = "Dom_Lang", y = "A_SUM", color = "Lang_Group",
+          palette = c("#00AFBB", "#E7B800", "#c92222"))
+
+# tukey
+
+tukey_test <- aov(my_data$A_SUM ~ my_data$Lang_Group * my_data$Gender * my_data$Dom_Lang)
+
+summary(tukey_test)
 
 ##ANOVA Section C and planned t-test
 ANOVA_sectionC_dom <- my_data %>% anova_test(C_SUM ~ Lang_Group * Gender * Dom_Lang, type = 3)
