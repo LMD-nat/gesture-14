@@ -1,7 +1,7 @@
-# code originally written by Dr Byers-Heinlein and Dr Gonzalez-Barrero, efited by myself on 26/10/2021
-  
+# code originally written by Dr Byers-Heinlein and Dr Gonzalez-Barrero, edited by myself on 26/10/2021
+
 #1.1. Cleaning workspace
-  
+
 rm(list=ls(all=T))
 
 #1.2. Load libraries
@@ -220,7 +220,7 @@ plot(res.aov_Tot_End, 2)
 ANOVA_sectionA <- my_data %>% anova_test(A_SUM ~ Lang_Group * Gender, type = 3)
 ANOVA_sectionA
 
-t_test_sectionA <- t.test(A_SUM~Gender, data = my_data, var.equal = TRUE)
+t_test_sectionA <- t.test(A_SUM, data = my_data, var.equal = TRUE)
 t_test_sectionA
 cohensD(my_data$A_SUM~my_data$Gender)
 
@@ -228,7 +228,7 @@ cohensD(my_data$A_SUM~my_data$Gender)
 ANOVA_sectionC <- my_data %>% anova_test(C_SUM ~ Lang_Group * Gender, type = 3)
 ANOVA_sectionC
 
-t_test_sectionC <- t.test(C_SUM~Gender, data = my_data, var.equal = TRUE)
+t_test_sectionC <- t.test(C_SUM, data = my_data, var.equal = TRUE)
 t_test_sectionC
 cohensD(my_data$C_SUM~my_data$Gender)
 
@@ -238,8 +238,8 @@ cohensD(my_data$C_SUM~my_data$Gender)
 kruskal.test(D_SUM~Lang_Group, data = my_data)
 kruskal_effsize(D_SUM~Lang_Group, data = my_data)
 
-kruskal.test(D_SUM~Gender, data = my_data)
-kruskal_effsize(D_SUM~Gender, data = my_data)
+kruskal.test(D_SUM, data = my_data)
+kruskal_effsize(D_SUM, data = my_data)
 pairwise.wilcox.test(my_data$D_SUM, my_data$Gender,
                      p.adjust.method = "BH")
 
@@ -247,7 +247,7 @@ pairwise.wilcox.test(my_data$D_SUM, my_data$Gender,
 ANOVA_sectionD <- my_data %>% anova_test(D_SUM ~ Lang_Group * Gender, type = 3)
 ANOVA_sectionD
 
-t_test_sectionD <- t.test(D_SUM~Gender, data = my_data, var.equal = TRUE)
+t_test_sectionD <- t.test(D_SUM, data = my_data, var.equal = TRUE)
 t_test_sectionD
 cohensD(my_data$D_SUM~my_data$Gender)
 
@@ -259,7 +259,7 @@ ANOVA_sectionE
 ANOVA_sectionCDE <- my_data %>% anova_test(CDE_SUM ~ Lang_Group * Gender, type = 3)
 ANOVA_sectionCDE
 
-t_test_sectionCDE <- t.test(CDE_SUM~Gender, data = my_data, var.equal = TRUE)
+t_test_sectionCDE <- t.test(CDE_SUM, data = my_data, var.equal = TRUE)
 t_test_sectionCDE
 cohensD(my_data$CDE_SUM~my_data$Gender)
 
@@ -267,7 +267,7 @@ cohensD(my_data$CDE_SUM~my_data$Gender)
 ANOVA_TotEnd <- my_data %>% anova_test(Tot_End ~ Lang_Group * Gender, type = 3)
 ANOVA_TotEnd
 
-t_test_TotEnd <- t.test(Tot_End~Gender, data = my_data, var.equal = TRUE)
+t_test_TotEnd <- t.test(Tot_End, data = my_data, var.equal = TRUE)
 t_test_TotEnd
 cohensD(my_data$Tot_End~my_data$Gender)
 
@@ -559,3 +559,170 @@ t_test_TotEnddom <- t.test(Tot_End~Dom_Lang, data = my_data, var.equal = TRUE)
 t_test_TotEnddom
 cohensD(my_data$Tot_End~my_data$Dom_Lang)
 
+#3.3. ANOVAs separately run for the English-dominant and the French-dominant subsets of infants
+
+# 3.3.1 English dominant infants ---------------------------------------------->
+
+my_data_eng <- subset(my_data, Dom_Lang=="EN")
+
+##ANOVA Section A and planned t-test
+ANOVA_sectionA <- my_data_eng %>% anova_test(A_SUM ~ Lang_Group * Gender, type = 3)
+ANOVA_sectionA
+
+t_test_sectionA <- t.test(A_SUM, data = my_data_eng, var.equal = TRUE)
+t_test_sectionA
+cohensD(my_data_eng$A_SUM~my_data_eng$Gender)
+
+##ANOVA Section C and planned t-test
+ANOVA_sectionC <- my_data_eng %>% anova_test(C_SUM ~ Lang_Group * Gender, type = 3)
+ANOVA_sectionC
+
+t_test_sectionC <- t.test(C_SUM, data = my_data_eng, var.equal = TRUE)
+t_test_sectionC
+cohensD(my_data_eng$C_SUM~my_data_eng$Gender)
+
+##Anova Section D, Kruskal-Wallis (nonparametric) and planned t-test
+
+#Nonparametric
+kruskal.test(D_SUM~Lang_Group, data = my_data_eng)
+kruskal_effsize(D_SUM~Lang_Group, data = my_data_eng)
+
+kruskal.test(D_SUM, data = my_data_eng)
+kruskal_effsize(D_SUM, data = my_data_eng)
+pairwise.wilcox.test(my_data_eng$D_SUM, my_data_eng$Gender,
+                     p.adjust.method = "BH")
+
+#Parametric
+ANOVA_sectionD <- my_data_eng %>% anova_test(D_SUM ~ Lang_Group * Gender, type = 3)
+ANOVA_sectionD
+
+t_test_sectionD <- t.test(D_SUM, data = my_data_eng, var.equal = TRUE)
+t_test_sectionD
+cohensD(my_data_eng$D_SUM~my_data_eng$Gender)
+
+##ANOVA Section E
+ANOVA_sectionE <- my_data_eng %>% anova_test(E_SUM ~ Lang_Group * Gender, type = 3)
+ANOVA_sectionE
+
+##ANOVA Section CDE and planned t-test
+ANOVA_sectionCDE <- my_data_eng %>% anova_test(CDE_SUM ~ Lang_Group * Gender, type = 3)
+ANOVA_sectionCDE
+
+t_test_sectionCDE <- t.test(CDE_SUM, data = my_data_eng, var.equal = TRUE)
+t_test_sectionCDE
+cohensD(my_data_eng$CDE_SUM~my_data_eng$Gender)
+
+##ANOVA Total Endorsement and planned t-test
+ANOVA_TotEnd <- my_data_eng %>% anova_test(Tot_End ~ Lang_Group * Gender, type = 3)
+ANOVA_TotEnd
+
+t_test_TotEnd <- t.test(Tot_End, data = my_data_eng, var.equal = TRUE)
+t_test_TotEnd
+cohensD(my_data_eng$Tot_End~my_data_eng$Gender)
+
+##View English-Dominant Results
+
+ANOVA_sectionA
+ANOVA_sectionC
+ANOVA_sectionD
+ANOVA_sectionE
+ANOVA_sectionCDE
+ANOVA_TotEnd
+# No effects we didn't expect here, no effects of language group p < .05
+
+# 3.3.1 French dominant infants ---------------------------------------------->
+  
+ my_data_t <- subset(my_data, Dom_Lang=="FR")
+
+##ANOVA Section A and planned t-test
+ANOVA_sectionA <-my_data_t %>% anova_test(A_SUM ~ Lang_Group * Gender, type = 3)
+ANOVA_sectionA
+
+t_test_sectionA <- t.test(A_SUM, data =my_data_t, var.equal = TRUE)
+t_test_sectionA
+cohensD(my_data_fre$A_SUM~my_data_fre$Gender)
+
+##ANOVA Section C and planned t-test
+ANOVA_sectionC <-my_data_t %>% anova_test(C_SUM ~ Lang_Group * Gender, type = 3)
+ANOVA_sectionC
+
+t_test_sectionC <- t.test(C_SUM, data =my_data_t, var.equal = TRUE)
+t_test_sectionC
+cohensD(my_data_fre$C_SUM~my_data_fre$Gender)
+
+##Anova Section D, Kruskal-Wallis (nonparametric) and planned t-test
+
+#Nonparametric
+kruskal.test(D_SUM~Lang_Group, data =my_data_t)
+kruskal_effsize(D_SUM~Lang_Group, data =my_data_t)
+
+kruskal.test(D_SUM, data =my_data_t)
+kruskal_effsize(D_SUM, data =my_data_t)
+pairwise.wilcox.test(my_data_fre$D_SUM,my_data_t$Gender,
+                     p.adjust.method = "BH")
+
+#Parametric
+ANOVA_sectionD <-my_data_t %>% anova_test(D_SUM ~ Lang_Group * Gender, type = 3)
+ANOVA_sectionD
+
+t_test_sectionD <- t.test(D_SUM, data =my_data_t, var.equal = TRUE)
+t_test_sectionD
+cohensD(my_data_fre$D_SUM~my_data_fre$Gender)
+
+##ANOVA Section E
+ANOVA_sectionE <-my_data_t %>% anova_test(E_SUM ~ Lang_Group * Gender, type = 3)
+ANOVA_sectionE
+
+##ANOVA Section CDE and planned t-test
+ANOVA_sectionCDE <-my_data_t %>% anova_test(CDE_SUM ~ Lang_Group * Gender, type = 3)
+ANOVA_sectionCDE
+
+t_test_sectionCDE <- t.test(CDE_SUM, data =my_data_t, var.equal = TRUE)
+t_test_sectionCDE
+cohensD(my_data_fre$CDE_SUM~my_data_fre$Gender)
+
+##ANOVA Total Endorsement and planned t-test
+ANOVA_TotEnd <-my_data_t %>% anova_test(Tot_End ~ Lang_Group * Gender, type = 3)
+ANOVA_TotEnd
+
+t_test_TotEnd <- t.test(Tot_End, data =my_data_t, var.equal = TRUE)
+t_test_TotEnd
+cohensD(my_data_fre$Tot_End~my_data_fre$Gender)
+
+##View French-Dominant Results
+
+ANOVA_sectionA
+ANOVA_sectionC
+ANOVA_sectionD
+ANOVA_sectionE
+ANOVA_sectionCDE
+ANOVA_TotEnd
+# Also no effects we didn't expect here, no effects of language group p < .05
+#------------------------------------------------------------------------------->
+  
+ # T-tests with language dominance as categorical variable
+# remove exposed infants
+  my_data_t <- subset(my_data, Lang_Group!="Exposed")
+  
+# two-sample t-tests with gesture as dv and language group as iv
+  
+  t_test_sectionA <- t.test(A_SUM~Lang_Group, data =my_data_t, var.equal = TRUE)
+  t_test_sectionA
+
+  t_test_sectionC <- t.test(C_SUM~Lang_Group, data =my_data_t, var.equal = TRUE)
+  t_test_sectionC
+
+  t_test_sectionD <- t.test(D_SUM~Lang_Group, data =my_data_t, var.equal = TRUE)
+  t_test_sectionD
+
+  t_test_sectionE <- t.test(E_SUM~Lang_Group, data =my_data_t, var.equal = TRUE)
+  t_test_sectionE
+
+  t_test_sectionCDE <- t.test(CDE_SUM~Lang_Group, data =my_data_t, var.equal = TRUE)
+  t_test_sectionCDE
+
+  t_test_TotEnd <- t.test(Tot_End~Lang_Group, data =my_data_t, var.equal = TRUE)
+  t_test_TotEnd
+  
+  # Also no effects we didn't expect here, no effects of language group p < .05
+  #------------------------------------------------------------------------------->
