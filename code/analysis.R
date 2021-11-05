@@ -700,7 +700,7 @@ ANOVA_TotEnd
 # Also no effects we didn't expect here, no effects of language group p < .05
 #------------------------------------------------------------------------------->
   
- # T-tests with language dominance as categorical variable
+ # T-tests with language dominance as categorical variable with BOTH GROUPS
 # remove exposed infants
   my_data_t <- subset(my_data, Lang_Group!="Exposed")
   
@@ -722,6 +722,62 @@ ANOVA_TotEnd
   t_test_sectionCDE
 
   t_test_TotEnd <- t.test(Tot_End~Lang_Group, data =my_data_t, var.equal = TRUE)
+  t_test_TotEnd
+  
+  # Also no effects we didn't expect here, no effects of language group p < .05
+  #------------------------------------------------------------------------------->
+  
+  # English Dominant Kids Only
+  # T-tests with language dominance as categorical variable
+  # remove exposed infants
+  my_data_t_eng <- subset(my_data_t, Dom_Lang=="EN")
+  
+  # two-sample t-tests with gesture as dv and language group as iv
+  
+  t_test_sectionA <- t.test(A_SUM~Lang_Group, data =my_data_t_eng, var.equal = TRUE)
+  t_test_sectionA
+  
+  t_test_sectionC <- t.test(C_SUM~Lang_Group, data =my_data_t_eng, var.equal = TRUE)
+  t_test_sectionC
+  
+  t_test_sectionD <- t.test(D_SUM~Lang_Group, data =my_data_t_eng, var.equal = TRUE)
+  t_test_sectionD
+  
+  t_test_sectionE <- t.test(E_SUM~Lang_Group, data =my_data_t_eng, var.equal = TRUE)
+  t_test_sectionE
+  
+  t_test_sectionCDE <- t.test(CDE_SUM~Lang_Group, data =my_data_t_eng, var.equal = TRUE)
+  t_test_sectionCDE
+  
+  t_test_TotEnd <- t.test(Tot_End~Lang_Group, data =my_data_t_eng, var.equal = TRUE)
+  t_test_TotEnd
+  
+  # Also no effects we didn't expect here, no effects of language group p < .05
+  #------------------------------------------------------------------------------->
+  
+  # French Dominant Kids Only
+  # T-tests with language dominance as categorical variable
+  # remove exposed infants
+  my_data_t_fre <- subset(my_data_t, Dom_Lang=="FR")
+  
+  # two-sample t-tests with gesture as dv and language group as iv
+  
+  t_test_sectionA <- t.test(A_SUM~Lang_Group, data =my_data_t_fre, var.equal = TRUE)
+  t_test_sectionA
+  
+  t_test_sectionC <- t.test(C_SUM~Lang_Group, data =my_data_t_fre, var.equal = TRUE)
+  t_test_sectionC
+  
+  t_test_sectionD <- t.test(D_SUM~Lang_Group, data =my_data_t_fre, var.equal = TRUE)
+  t_test_sectionD
+  
+  t_test_sectionE <- t.test(E_SUM~Lang_Group, data =my_data_t_fre, var.equal = TRUE)
+  t_test_sectionE
+  
+  t_test_sectionCDE <- t.test(CDE_SUM~Lang_Group, data =my_data_t_fre, var.equal = TRUE)
+  t_test_sectionCDE
+  
+  t_test_TotEnd <- t.test(Tot_End~Lang_Group, data =my_data_t_fre, var.equal = TRUE)
   t_test_TotEnd
   
   # Also no effects we didn't expect here, no effects of language group p < .05
